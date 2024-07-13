@@ -1,9 +1,256 @@
 extends ../core/ui/layout/templates/map.pug
 
 block title
-  | Карта проекта
-
+  | Тестовое задание - верстка
 block workarea
-  h1 Карта проекта
+  block topPanel
+    section.top-panel
+      h1.top-panel__title Marketplace
+      .top-panel__search-container
+        svg.top-panel__search-icon
+          use(xlink:href='/assets/icons/default/sprite.svg#search')
+        input(type="search" class="top-panel__search" placeholder="search for a product, flower, etc")
+      ul.top-panel__types 
+        li.top-panel__type.type
+          label.type__label
+            input(type="checkbox" class="type__checkbox" value="buds" checked)
+            .type__container
+              svg.type__icon
+                use(xlink:href='/assets/icons/default/sprite.svg#leaf')
+              span.type__text Buds
+        li.top-panel__type.type
+          label.type__label
+            input(type="checkbox" class="type__checkbox" value="edible")
+            .type__container
+              svg.type__icon
+                use(xlink:href='/assets/icons/default/sprite.svg#leaf')
+              span.type__text Edible
+        li.top-panel__type.type
+          label.type__label
+            input(type="checkbox" class="type__checkbox" value="non-edible")
+            .type__container
+              svg.type__icon
+                use(xlink:href='/assets/icons/default/sprite.svg#leaf')
+              span.type__text Non Edible
+        li.top-panel__type.type
+          label.type__label
+            input(type="checkbox" class="type__checkbox" value="concentrate")
+            .type__container
+              svg.type__icon
+                use(xlink:href='/assets/icons/default/sprite.svg#leaf')
+              span.type__text Concentrate
 
-  a(href="ui.html") ui
+  - const dropdownItems = [{ value: 'date-new', icon: '/src/core/assets/icons/calendar.svg', text: 'Date (New first)' },{ value: 'date-old', icon: '/src/core/assets/icons/calendar.svg', text: 'Date (Old first)' },{ value: 'price-high', icon: '/src/core/assets/icons/arrow-up.svg', text: 'Price (High first)' },{ value: 'price-low', icon: '/src/core/assets/icons/arrow-down.svg', text: 'Price (Low first)' },{ value: 'thc-high', iconText: 'THC', text: 'Total THC (High first)' },{ value: 'thc-low', iconText: 'THC', text: 'Total THC (Low first)' },{ value: 'cbd-high', iconText: 'CBD', text: 'Total CBD (High first)' },{ value: 'cbd-low', iconText: 'CBD', text: 'Total CBD (Low first)' }]
+
+  block ranges
+    section.ranges
+      .ranges__container
+        ul.ranges__sliders
+          li.ranges__slider
+            span.range-slider__label Price Range
+            .range-slider#slider-price
+            .range-slider__inputs-container
+              .range-slider__input-wrapper 
+                input(type="text" class="range-slider__input range-slider__input--from" id="price-from" placeholder="0 $")
+                span.range-slider__input-span $
+              .range-slider__input-wrapper.range-slider__input-wrapper--to.range-slider__input-wrapper--wide
+                input(type="text" class="range-slider__input range-slider__input--to range-slider__input--wide" id="price-to" placeholder="9999 $")
+                span.range-slider__input-span $
+          li.ranges__slider
+            span.range-slider__label ТНС, %
+            .range-slider#slider-price
+              .range-slider__inputs-container
+                span
+                .range-slider__input-wrapper.range-slider__input-wrapper--to
+                  input(type="text" class="range-slider__input range-slider__input--to" id="thc-to" placeholder="100 %")
+                  span.range-slider__input-span %
+          li.ranges__slider
+            span.range-slider__label CBD, %
+            .range-slider#slider-price
+              .range-slider__inputs-container
+                span
+                .range-slider__input-wrapper.range-slider__input-wrapper--to
+                  input(type="text" class="range-slider__input range-slider__input--to" id="cbd-to" placeholder="100 %")
+                  span.range-slider__input-span %
+        .ranges__range.range
+          span.range__label Nose
+          .range__items
+            each val in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+              input(type="radio", name="range", id="range" + val, class=`range__item range__item--${val <= 5 ? 'yellow' : 'green'}${val == 5 || val == 10 ? ' range__item--tall' : ''}`)
+          .range__text-container
+            span.range__text min
+            span.range__text max
+      .dropdown
+        a.dropdown__btn
+          svg.dropdown__icon
+            use(xlink:href='/assets/icons/default/sprite.svg#dropdown-btn')
+        .dropdown__container 
+          h2.dropdown__header Sort by :
+          ul.dropdown__list 
+              li.dropdown__item.item
+                a.item__wrapper(data-value='date-new')
+                  svg.item__icon
+                    use(xlink:href='/assets/icons/default/sprite.svg#calendar')
+                  span.item__text Date (New first)
+              li.dropdown__item.item
+                a.item__wrapper(data-value='date-old')
+                  svg.item__icon
+                    use(xlink:href='/assets/icons/default/sprite.svg#calendar')
+                  span.item__text Date (Old first)
+              li.dropdown__item.item
+                a.item__wrapper(data-value='price-high')
+                  svg.item__icon
+                    use(xlink:href='/assets/icons/default/sprite.svg#arrow-up')
+                  span.item__text Price (High first)
+              li.dropdown__item.item
+                a.item__wrapper(data-value='price-low')
+                  svg.item__icon
+                    use(xlink:href='/assets/icons/default/sprite.svg#arrow-down')
+                  span.item__text Price (Low first)
+              li.dropdown__item.item
+                a.item__wrapper(data-value='thc-high')
+                  .item__icon
+                    span.item__icon-text THC
+                    svg.item__icon-svg
+                      use(xlink:href='/assets/icons/default/sprite.svg#arrow-more')
+                  span.item__text Total THC (High first)
+              li.dropdown__item.item
+                a.item__wrapper(data-value='thc-low')
+                  .item__icon
+                    span.item__icon-text THC
+                    svg.item__icon-svg
+                      use(xlink:href='/assets/icons/default/sprite.svg#arrow-less')
+                  span.item__text Total THC (Low first)
+              li.dropdown__item.item
+                a.item__wrapper(data-value='cbd-high')
+                  .item__icon
+                    span.item__icon-text CBD
+                    svg.item__icon-svg
+                      use(xlink:href='/assets/icons/default/sprite.svg#arrow-more')
+                  span.item__text Total CBD (High first)
+              li.dropdown__item.item
+                a.item__wrapper(data-value='cbd-low')
+                  .item__icon
+                    span.item__icon-text CBD
+                    svg.item__icon-svg
+                      use(xlink:href='/assets/icons/default/sprite.svg#arrow-less')
+                  span.item__text Total CBD (Low first)
+
+
+
+
+    - const selectedFilters = ['100% Indica', '>50% Indica', 'Indoor', 'Flower', 'Michigan', 'SellerSeller', 'Distributor']
+
+    block chosenFilters 
+      section.chosen-filters
+        p.chosen-filters__results-text 
+          span.chosen-filters__results-value 1034,5 
+          | Results
+        .chosen-filters__container
+          ul.chosen-filters__list
+            for filter in selectedFilters
+              li.chosen-filters__filter.filter 
+                span.filter__text= filter
+                button.filter__cancel-btn
+    block filtersAccordion 
+      section.filters-accordion
+        .filters-accordion__container
+          .filters-accordion__item
+            .filters-accordion__header 
+              span Classification
+              span.filters-accordion__arrow
+            .filters-accordion__content
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="type-all-indica") 100% Indica
+                  input(class="checkbox__input" type="checkbox" id="type-all-indica")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="type-all-sativa") 100% Sativa
+                  input(class="checkbox__input" type="checkbox" id="type-all-sativa")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="type-half-indica") >50% Indica
+                  input(class="checkbox__input" type="checkbox" id="type-half-indica")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="type-half-sativa") >50% Sativa
+                  input(class="checkbox__input" type="checkbox" id="type-half-sativa")
+                  span.checkbox__checkmark
+          .filters-accordion__item
+            .filters-accordion__header
+              span Production Method
+              span.filters-accordion__arrow
+            .filters-accordion__content
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="method-indoor") Indoor
+                  input(class="checkbox__input" type="checkbox" id="method-indoor")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox
+                label(class="checkbox__label" for="method-outdoor") Outdoor
+                  input(class="checkbox__input" type="checkbox" id="method-outdoor")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="method-greenhouse") Greenhouse
+                  input(class="checkbox__input" type="checkbox" id="method-greenhouse")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="method-light-deprivation") Light Deprivation
+                  input(class="checkbox__input" type="checkbox" id="method-light-deprivation")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox
+                label(class="checkbox__label" for="method-mixed-light") Mixed Light
+                  input(class="checkbox__input" type="checkbox" id="method-mixed-light")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="method-other") Other
+                  input(class="checkbox__input" type="checkbox" id="method-other")
+                  span.checkbox__checkmark
+          .filters-accordion__item
+            .filters-accordion__header 
+              span Size
+              span.filters-accordion__arrow
+            .filters-accordion__content
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="size-flower") Flower
+                  input(class="checkbox__input" type="checkbox" id="size-flower")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="size-preroll-flower") Pre-Roll Flower
+                  input(class="checkbox__input" type="checkbox" id="size-preroll-flower")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="size-preroll-infused") Pre-Roll Infused
+                  input(class="checkbox__input" type="checkbox" id="size-preroll-infused")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="size-preroll-leaf") Pre-Roll Leaf
+                  input(class="checkbox__input" type="checkbox" id="size-preroll-leaf")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="size-shake") Shake
+                  input(class="checkbox__input" type="checkbox" id="size-shake")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="size-smalls") Smalls
+                  input(class="checkbox__input" type="checkbox" id="size-smalls")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="size-trim") Trim
+                  input(class="checkbox__input" type="checkbox" id="size-trim")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="size-shake") Shake
+                  input(class="checkbox__input" type="checkbox" id="size-shake")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="size-keef") Keef
+                  input(class="checkbox__input" type="checkbox" id="size-keef")
+                  span.checkbox__checkmark
+              .filters-accordion__checkbox.checkbox
+                label(class="checkbox__label" for="size-fresh-frozen") Fresh Frozen
+                  input(class="checkbox__input" type="checkbox" id="size-fresh-frozen")
+                  span.checkbox__checkmark
+
+
+
+  //- a(href="ui.html") ui

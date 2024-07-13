@@ -38,5 +38,9 @@
     "hygen": "^6.2.11",
     "sass": "^1.66.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "gulp-concat": "^2.6.1",
+    "nouislider": "^15.8.1",
+    "wnumb": "^1.2.0"
+  }
 }

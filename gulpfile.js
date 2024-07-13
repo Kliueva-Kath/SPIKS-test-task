@@ -10,6 +10,8 @@ const pug = require('gulp-pug');
 
 const babel = require('gulp-babel');
 
+const concat = require('gulp-concat');
+
 const del = require('del');
 const localServer = require('browser-sync').create();
 const include = require('gulp-include');
@@ -22,40 +24,44 @@ const ghPages = require('gulp-gh-pages');
 
 const extendedSvgSpritesBuilder = (mode) => {
   return (cb) => {
-    const pipeline = src('src/core/assets/icons/**/*.svg')
+    const pipeline = src('src/core/assets/icons/**/*.svg');
     if (mode === 'clean') {
       pipeline
-        .pipe(cheerio({
-          run($) {
-            $('[fill]').removeAttr('fill');
-            $('[stroke]').attr('stroke', 'currentColor');
-            $('[style]').removeAttr('style');
-          },
-          parserOptions: { xmlMode: true },
-        }))
-        .pipe(plumber())
+        .pipe(
+          cheerio({
+            run($) {
+              $('[fill]').removeAttr('fill');
+              $('[stroke]').attr('stroke', 'currentColor');
+              $('[style]').removeAttr('style');
+            },
+            parserOptions: { xmlMode: true },
+          })
+        )
+        .pipe(plumber());
     }
 
     pipeline
-      .pipe(svgSpritesBuilder({
-        shape: {
-          dimension: {
-            maxWidth: 48,
-            maxHeight: 48,
+      .pipe(
+        svgSpritesBuilder({
+          shape: {
+            dimension: {
+              maxWidth: 48,
+              maxHeight: 48,
+            },
           },
-        },
-        mode: {
-          symbol: {
-            dest: mode,
-            inline: true,
-            sprite: './sprite.svg',
+          mode: {
+            symbol: {
+              dest: mode,
+              inline: true,
+              sprite: './sprite.svg',
+            },
           },
-        },
-      }))
+        })
+      )
       .pipe(plumber())
       .pipe(dest(`${stageDirname}/assets/icons/`))
       .on('end', cb)
-      .on('error', cb)
+      .on('error', cb);
 
     return pipeline;
   };
@@ -72,29 +78,41 @@ function upLocalServer() {
     port: 8080,
     ui: { port: 8081 },
     open: true,
-  })
+  });
 }
 
 function styles() {
-  return src('src/app/index.+(scss|sass)')
+  return src([
+    'node_modules/nouislider/dist/nouislider.min.css', // noUiSlider CSS
+    'src/app/index.+(scss|sass)',
+  ])
     .pipe(sass().on('error', sass.logError))
-    .pipe(autoprefixer({
-      grid: true,
-      overrideBrowserslist: ['last 10 version'],
-    }))
+    .pipe(
+      autoprefixer({
+        grid: true,
+        overrideBrowserslist: ['last 10 version'],
+      })
+    )
     .pipe(gcmq())
+    .pipe(concat('index.css'))
     .pipe(dest(`${stageDirname}/css/`))
-    .pipe(localServer.stream())
+    .pipe(localServer.stream());
 }
 
 function scripts() {
-  return src('src/app/index.js')
-    .pipe(include({ hardFail: true }))
-    .pipe(babel({
-      presets: ['@babel/env'],
-    }))
+  return src([
+    'node_modules/nouislider/dist/nouislider.min.js',
+    'node_modules/wNumb/wNumb.js',
+    'src/app/index.js',
+  ])
+    .pipe(concat('index.js'))
+    .pipe(
+      babel({
+        presets: ['@babel/env'],
+      })
+    )
     .pipe(dest(`${stageDirname}/js/`))
-    .pipe(localServer.stream())
+    .pipe(localServer.stream());
 }
 
 //If Pug
@@ -102,11 +120,11 @@ function pugMaker() {
   return src('src/pages/*.pug')
     .pipe(
       pug({
-        pretty: true
+        pretty: true,
       })
     )
     .pipe(dest(`${stageDirname}/`))
-    .pipe(localServer.reload({ stream: true, }))
+    .pipe(localServer.reload({ stream: true }));
 }
 
 //If HTML
@@ -114,91 +132,79 @@ function pages() {
   return src('src/pages/*.html')
     .pipe(include({ hardFail: true }))
     .pipe(dest(`${stageDirname}/`))
-    .pipe(localServer.reload({ stream: true, }))
+    .pipe(localServer.reload({ stream: true }));
 }
 
 function copyFonts() {
-  return src('src/core/assets/fonts/**/*')
-    .pipe(dest(`${stageDirname}//assets/fonts/`))
+  return src('src/core/assets/fonts/**/*').pipe(
+    dest(`${stageDirname}/assets/fonts/`)
+  );
 }
 
 function copyMedia() {
-  return src('src/core/assets/media/**/*')
-    .pipe(dest(`${stageDirname}/assets/media/`))
+  return src('src/core/assets/media/**/*').pipe(
+    dest(`${stageDirname}/assets/media/`)
+  );
 }
 
 function copyVendors() {
-  return src('src/core/vendors/**/*')
-    .pipe(dest(`${stageDirname}/vendors/`))
+  return src('src/core/vendors/**/*').pipe(dest(`${stageDirname}/vendors/`));
 }
 
 function buildCleanSvgSprites(cb) {
   return extendedSvgSpritesBuilder('clean')(cb);
-};
+}
 
 function buildDefaultSvgSprites(cb) {
   return extendedSvgSpritesBuilder('default')(cb);
-};
+}
 
 function buildSvgSprites() {
-  return parallel(
-    buildCleanSvgSprites,
-    buildDefaultSvgSprites,
-  );
-};
+  return parallel(buildCleanSvgSprites, buildDefaultSvgSprites);
+}
 
 async function copyResources() {
-  copyFonts()
-  copyMedia()
-  copyVendors()
+  copyFonts();
+  copyMedia();
+  copyVendors();
 }
 
 async function clean() {
-  return del.sync(`${stageDirname}/`, { force: true })
+  return del.sync(`${stageDirname}/`, { force: true });
 }
 
 function watching() {
-  watch(['src/**/*.js'], scripts)
-  watch(['src/**/*.+(scss|sass)'], styles).on(
-    'change',
-    localServer.reload
-  )
-  watch(['src/**/*.html'], pages).on(
-    'change',
-    localServer.reload
-  )
-  watch(['src/**/*.pug'], pugMaker).on(
-    'change',
-    localServer.reload
-  )
+  watch(['src/**/*.js'], scripts);
+  watch(['src/**/*.+(scss|sass)'], styles).on('change', localServer.reload);
+  watch(['src/**/*.html'], pages).on('change', localServer.reload);
+  watch(['src/**/*.pug'], pugMaker).on('change', localServer.reload);
   watch(['src/core/assets/media/**/*.*'], copyMedia).on(
     'change',
     localServer.reload
-  )
+  );
   watch(['src/core/assets/icons/*.svg'], buildSvgSprites).on(
     'change',
     localServer.reload
-  )
+  );
   watch(['src/core/vendors/**/*'], copyVendors).on(
     'change',
     localServer.reload
-  )
+  );
 }
 
 function deploy() {
-  return src(`./${stageDirname}/**/*`)
-    .pipe(ghPages({ branch: "build" }))
-};
+  return src(`./${stageDirname}/**/*`).pipe(ghPages({ branch: 'build' }));
+}
 
-exports.localServer = localServer
-exports.clean = clean
-exports.scripts = scripts
-exports.styles = styles
-exports.pages = pages
-exports.pugMaker = pugMaker
-exports.copyResources = copyResources
-exports.buildSvgSprites = buildSvgSprites
-exports.deploy = deploy
+exports.localServer = localServer;
+exports.clean = clean;
+exports.scripts = scripts;
+exports.styles = styles;
+exports.pages = pages;
+exports.pugMaker = pugMaker;
+exports.copyResources = copyResources;
+exports.buildSvgSprites = buildSvgSprites;
+exports.deploy = deploy;
 
 exports.default = parallel(
   clean,
@@ -209,7 +215,7 @@ exports.default = parallel(
   pugMaker,
   pages,
   upLocalServer,
-  watching,
+  watching
 );
 
 exports.build = series(
@@ -219,8 +225,8 @@ exports.build = series(
   copyResources,
   buildSvgSprites(),
   pugMaker,
-  pages,
-)
+  pages
+);
 
 exports.deploy = series(
   clean,
@@ -231,8 +237,4 @@ exports.deploy = series(
   pugMaker,
   pages,
   deploy
-)
-
-
-
-
+);
