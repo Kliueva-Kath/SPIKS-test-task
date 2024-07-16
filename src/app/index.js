@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="filter__text">${filter}</span>
           <a class="filter__cancel-btn" data-filter="${filter}">
             <svg class="filter__cancel-icon">
-              <use xlink:href="/assets/icons/default/sprite.svg#cancel-filter"></use>
+              <use xlink:href="./assets/icons/default/sprite.svg#cancel-filter"></use>
             </svg>
           </a>`;
         selectedFiltersList.appendChild(listItem);
