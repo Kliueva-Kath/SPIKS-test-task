@@ -1,0 +1,97 @@
+- const dropdownItems = [{ value: 'date-new', icon: '/src/core/assets/icons/calendar.svg', text: 'Date (New first)' },{ value: 'date-old', icon: '/src/core/assets/icons/calendar.svg', text: 'Date (Old first)' },{ value: 'price-high', icon: '/src/core/assets/icons/arrow-up.svg', text: 'Price (High first)' },{ value: 'price-low', icon: '/src/core/assets/icons/arrow-down.svg', text: 'Price (Low first)' },{ value: 'thc-high', iconText: 'THC', text: 'Total THC (High first)' },{ value: 'thc-low', iconText: 'THC', text: 'Total THC (Low first)' },{ value: 'cbd-high', iconText: 'CBD', text: 'Total CBD (High first)' },{ value: 'cbd-low', iconText: 'CBD', text: 'Total CBD (Low first)' }]
+section.ranges
+    .ranges__container
+        ul.ranges__sliders
+            li.ranges__slider
+                span.range-slider__label Price Range
+                .range-slider#slider-price
+                .range-slider__inputs-container
+                    .range-slider__input-wrapper 
+                        input(type="number" min="0" class="range-slider__input range-slider__input--from" id="price-from" placeholder="0 $" )
+                        span.range-slider__input-span $
+                    .range-slider__input-wrapper.range-slider__input-wrapper--to.range-slider__input-wrapper--wide
+                        input(type="number" min="0" class="range-slider__input range-slider__input--to range-slider__input--wide" id="price-to" placeholder="9999 $")
+                        span.range-slider__input-span $
+            li.ranges__slider
+                span.range-slider__label ТНС, %
+                .range-slider#slider-thc
+                .range-slider__inputs-container
+                    span
+                    .range-slider__input-wrapper.range-slider__input-wrapper--to
+                        input(type="number" min="0" max="100" class="range-slider__input range-slider__input--to" id="thc-to" placeholder="100 %")
+                        span.range-slider__input-span %
+            li.ranges__slider
+                span.range-slider__label CBD, %
+                .range-slider#slider-cbd
+                .range-slider__inputs-container
+                    span
+                    .range-slider__input-wrapper.range-slider__input-wrapper--to
+                        input(type="number" min="0" max="100" class="range-slider__input range-slider__input--to" id="cbd-to" placeholder="100 %")
+                        span.range-slider__input-span %
+        .ranges__range.range
+            span.range__label Nose
+            .range__items
+                each val in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    input(type="radio", name="range", id="range" + val, class=`range__item range__item--${val <= 5 ? 'yellow' : 'green'}${val == 5 || val == 10 ? ' range__item--tall' : ''}`)
+            .range__text-container
+                span.range__text min
+                span.range__text max
+    .dropdown
+        a.dropdown__btn#dropdown-btn
+            svg.dropdown__icon
+                use(xlink:href='/assets/icons/default/sprite.svg#dropdown-btn')
+        .dropdown__container#sorting-dropdown
+            h2.dropdown__header Sort by :
+            ul.dropdown__list 
+                li.dropdown__item.item
+                    a.item__wrapper(data-value='date-new')
+                        svg.item__icon
+                            use(xlink:href='/assets/icons/default/sprite.svg#calendar')
+                        span.item__text Date (New first)
+                li.dropdown__item.item
+                    a.item__wrapper(data-value='date-old')
+                        svg.item__icon
+                            use(xlink:href='/assets/icons/default/sprite.svg#calendar')
+                        span.item__text Date (Old first)
+                li.dropdown__item.item
+                    a.item__wrapper(data-value='price-high')
+                        svg.item__icon
+                            use(xlink:href='/assets/icons/default/sprite.svg#arrow-up')
+                        span.item__text Price (High first)
+                li.dropdown__item.item
+                    a.item__wrapper(data-value='price-low')
+                        svg.item__icon
+                            use(xlink:href='/assets/icons/default/sprite.svg#arrow-down')
+                        span.item__text Price (Low first)
+                li.dropdown__item.item
+                    a.item__wrapper(data-value='thc-high')
+                        .item__icon
+                            svg.item__icon-text
+                                use(xlink:href='/assets/icons/default/sprite.svg#THC')
+                            svg.item__icon-svg(style='position: absolute; right: -5px; bottom: -1px; width: 18.07px; height: 13.01px;')
+                                use(xlink:href='/assets/icons/default/sprite.svg#arrow-more')
+                        span.item__text Total THC (High first)
+                li.dropdown__item.item
+                    a.item__wrapper(data-value='thc-low')
+                        .item__icon
+                            svg.item__icon-text
+                                use(xlink:href='/assets/icons/default/sprite.svg#THC')
+                            svg.item__icon-svg(style='position: absolute; right: -7px; bottom: -1px; width: 18.07px; height: 13.01px;')
+                                use(xlink:href='/assets/icons/default/sprite.svg#arrow-less')
+                        span.item__text Total THC (Low first)
+                li.dropdown__item.item
+                    a.item__wrapper(data-value='cbd-high')
+                        .item__icon
+                            svg.item__icon-text
+                                use(xlink:href='/assets/icons/default/sprite.svg#CBD')
+                            svg.item__icon-svg(style='position: absolute; right: -7px; bottom: 0px; width: 18.07px; height: 13.01px;')
+                                use(xlink:href='/assets/icons/default/sprite.svg#arrow-more')
+                        span.item__text Total CBD (High first)
+                li.dropdown__item.item
+                    a.item__wrapper(data-value='cbd-low')
+                        .item__icon
+                            svg.item__icon-text
+                                use(xlink:href='/assets/icons/default/sprite.svg#CBD')
+                            svg.item__icon-svg(style='position: absolute; right: -9px; bottom: -1px; width: 18.07px; height: 13.01px;')
+                                use(xlink:href='/assets/icons/default/sprite.svg#arrow-less')
+                        span.item__text Total CBD (Low first)

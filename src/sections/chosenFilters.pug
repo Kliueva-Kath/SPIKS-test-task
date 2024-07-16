@@ -1,0 +1,14 @@
+- const selectedFilters = []
+
+section.chosen-filters
+    p.chosen-filters__results-text 
+        span.chosen-filters__results-value 1034,5 
+        | Results
+    .chosen-filters__container
+        ul.chosen-filters__list
+            for filter in selectedFilters
+                li.chosen-filters__filter.filter 
+                    span.filter__text= filter
+                    a.filter__cancel-btn(data-filter=filter)
+                        svg.filter__cancel-icon
+                            use(xlink:href='/assets/icons/default/sprite.svg#cancel-filter')

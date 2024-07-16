@@ -1,0 +1,35 @@
+section.top-panel
+    h1.top-panel__title Marketplace
+    .top-panel__search-container
+        svg.top-panel__search-icon
+            use(xlink:href='/assets/icons/default/sprite.svg#search')
+        input(type="search" class="top-panel__search" placeholder="search for a product, flower, etc")
+    ul.top-panel__types 
+        li.top-panel__type.type
+            label.type__label
+                input(type="checkbox" class="type__checkbox" value="buds" checked)
+                .type__container
+                    svg.type__icon
+                        use(xlink:href='/assets/icons/default/sprite.svg#leaf')
+                    span.type__text Buds
+        li.top-panel__type.type
+            label.type__label
+                input(type="checkbox" class="type__checkbox" value="edible")
+                .type__container
+                    svg.type__icon
+                        use(xlink:href='/assets/icons/default/sprite.svg#leaf')
+                    span.type__text Edible
+        li.top-panel__type.type
+            label.type__label
+                input(type="checkbox" class="type__checkbox" value="non-edible")
+                .type__container
+                    svg.type__icon
+                        use(xlink:href='/assets/icons/default/sprite.svg#leaf')
+                    span.type__text Non Edible
+        li.top-panel__type.type
+            label.type__label
+                input(type="checkbox" class="type__checkbox" value="concentrate")
+                .type__container
+                    svg.type__icon
+                        use(xlink:href='/assets/icons/default/sprite.svg#leaf')
+                    span.type__text Concentrate
