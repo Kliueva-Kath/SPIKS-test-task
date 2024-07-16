@@ -1466,7 +1466,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var filter = checkbox.getAttribute('data-filter');
         var listItem = document.createElement('li');
         listItem.classList.add('chosen-filters__filter', 'filter');
-        listItem.innerHTML = "\n          <span class=\"filter__text\">".concat(filter, "</span>\n          <a class=\"filter__cancel-btn\" data-filter=\"").concat(filter, "\">\n            <svg class=\"filter__cancel-icon\">\n              <use xlink:href=\"/assets/icons/default/sprite.svg#cancel-filter\"></use>\n            </svg>\n          </a>");
+        listItem.innerHTML = "\n          <span class=\"filter__text\">".concat(filter, "</span>\n          <a class=\"filter__cancel-btn\" data-filter=\"").concat(filter, "\">\n            <svg class=\"filter__cancel-icon\">\n              <use xlink:href=\"./assets/icons/default/sprite.svg#cancel-filter\"></use>\n            </svg>\n          </a>");
         selectedFiltersList.appendChild(listItem);
       }
     });
