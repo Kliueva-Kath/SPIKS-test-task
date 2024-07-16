@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="/js/index.js"></script>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: 0.2s;
+    
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+    
+      &::-webkit-scrollbar-track {
+        background-color: #171722;
+      }
+    
+      &::-webkit-scrollbar-thumb {
+        background-color: #fff;
+      }    
+    }
+    
+    html {
+      background-color: #171722;
+      color: #fff;
+      font-size: 18px;
+      font-family: monospace;
+    }
+    
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      min-height: 100vh;
+    }
+    
+    h1 {
+      font-size: 24px;
+    }
+    
+    a {
+      color: inherit;
+    }
+    
+    a:hover,
+    a:active {
+      opacity: 0.6;
+    }
+    
+    .header,
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      padding: 16px;
+    }
+    
+    .logo {
+      max-width: 48px;
+      max-height: 48px;
+      object-fit: contain;
+      object-position: center;
+    }
+    
+    .main {
+      display: flex;
+      flex-direction: column;
+      padding: 22px 20px;
+      width: 100%;
+      max-width: 1489px;
+    }
+    
+    h1 {
+      margin-bottom: 24px;
+    }
+    
+    .footer {
+      margin-top: auto;
+    }
+    
+  </style>
+  <title>Тестовое задание - верстка
+  </title>
+  <body>
+    <div class="main">
+      <section class="top-panel">
+        <h1 class="top-panel__title">Marketplace</h1>
+        <div class="top-panel__search-container">
+          <svg class="top-panel__search-icon">
+            <use xlink:href="/assets/icons/default/sprite.svg#search"></use>
+          </svg>
+          <input class="top-panel__search" type="search" placeholder="search for a product, flower, etc">
+        </div>
+        <ul class="top-panel__types"> 
+          <li class="top-panel__type type">
+            <label class="type__label">
+              <input class="type__checkbox" type="checkbox" value="buds" checked>
+              <div class="type__container">
+                <svg class="type__icon">
+                  <use xlink:href="/assets/icons/default/sprite.svg#leaf"></use>
+                </svg><span class="type__text">Buds</span>
+              </div>
+            </label>
+          </li>
+          <li class="top-panel__type type">
+            <label class="type__label">
+              <input class="type__checkbox" type="checkbox" value="edible">
+              <div class="type__container">
+                <svg class="type__icon">
+                  <use xlink:href="/assets/icons/default/sprite.svg#leaf"></use>
+                </svg><span class="type__text">Edible</span>
+              </div>
+            </label>
+          </li>
+          <li class="top-panel__type type">
+            <label class="type__label">
+              <input class="type__checkbox" type="checkbox" value="non-edible">
+              <div class="type__container">
+                <svg class="type__icon">
+                  <use xlink:href="/assets/icons/default/sprite.svg#leaf"></use>
+                </svg><span class="type__text">Non Edible</span>
+              </div>
+            </label>
+          </li>
+          <li class="top-panel__type type">
+            <label class="type__label">
+              <input class="type__checkbox" type="checkbox" value="concentrate">
+              <div class="type__container">
+                <svg class="type__icon">
+                  <use xlink:href="/assets/icons/default/sprite.svg#leaf"></use>
+                </svg><span class="type__text">Concentrate</span>
+              </div>
+            </label>
+          </li>
+        </ul>
+      </section>
+      <section class="ranges">
+        <div class="ranges__container">
+          <ul class="ranges__sliders">
+            <li class="ranges__slider"><span class="range-slider__label">Price Range</span>
+              <div class="range-slider" id="slider-price"></div>
+              <div class="range-slider__inputs-container">
+                <div class="range-slider__input-wrapper"> 
+                  <input class="range-slider__input range-slider__input--from" type="number" min="0" id="price-from" placeholder="0 $"><span class="range-slider__input-span">$</span>
+                </div>
+                <div class="range-slider__input-wrapper range-slider__input-wrapper--to range-slider__input-wrapper--wide">
+                  <input class="range-slider__input range-slider__input--to range-slider__input--wide" type="number" min="0" id="price-to" placeholder="9999 $"><span class="range-slider__input-span">$</span>
+                </div>
+              </div>
+            </li>
+            <li class="ranges__slider"><span class="range-slider__label">ТНС, %</span>
+              <div class="range-slider" id="slider-thc"></div>
+              <div class="range-slider__inputs-container"><span></span>
+                <div class="range-slider__input-wrapper range-slider__input-wrapper--to">
+                  <input class="range-slider__input range-slider__input--to" type="number" min="0" max="100" id="thc-to" placeholder="100 %"><span class="range-slider__input-span">%</span>
+                </div>
+              </div>
+            </li>
+            <li class="ranges__slider"><span class="range-slider__label">CBD, %</span>
+              <div class="range-slider" id="slider-cbd"></div>
+              <div class="range-slider__inputs-container"><span></span>
+                <div class="range-slider__input-wrapper range-slider__input-wrapper--to">
+                  <input class="range-slider__input range-slider__input--to" type="number" min="0" max="100" id="cbd-to" placeholder="100 %"><span class="range-slider__input-span">%</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="ranges__range range"><span class="range__label">Nose</span>
+            <div class="range__items">
+              <input class="range__item range__item--yellow" type="radio" name="range" id="range1">
+              <input class="range__item range__item--yellow" type="radio" name="range" id="range2">
+              <input class="range__item range__item--yellow" type="radio" name="range" id="range3">
+              <input class="range__item range__item--yellow" type="radio" name="range" id="range4">
+              <input class="range__item range__item--yellow range__item--tall" type="radio" name="range" id="range5">
+              <input class="range__item range__item--green" type="radio" name="range" id="range6">
+              <input class="range__item range__item--green" type="radio" name="range" id="range7">
+              <input class="range__item range__item--green" type="radio" name="range" id="range8">
+              <input class="range__item range__item--green" type="radio" name="range" id="range9">
+              <input class="range__item range__item--green range__item--tall" type="radio" name="range" id="range10">
+            </div>
+            <div class="range__text-container"><span class="range__text">min</span><span class="range__text">max</span></div>
+          </div>
+        </div>
+        <div class="dropdown"><a class="dropdown__btn" id="dropdown-btn">
+            <svg class="dropdown__icon">
+              <use xlink:href="/assets/icons/default/sprite.svg#dropdown-btn"></use>
+            </svg></a>
+          <div class="dropdown__container" id="sorting-dropdown">
+            <h2 class="dropdown__header">Sort by :</h2>
+            <ul class="dropdown__list"> 
+              <li class="dropdown__item item"><a class="item__wrapper" data-value="date-new">
+                  <svg class="item__icon">
+                    <use xlink:href="/assets/icons/default/sprite.svg#calendar"></use>
+                  </svg><span class="item__text">Date (New first)</span></a></li>
+              <li class="dropdown__item item"><a class="item__wrapper" data-value="date-old">
+                  <svg class="item__icon">
+                    <use xlink:href="/assets/icons/default/sprite.svg#calendar"></use>
+                  </svg><span class="item__text">Date (Old first)</span></a></li>
+              <li class="dropdown__item item"><a class="item__wrapper" data-value="price-high">
+                  <svg class="item__icon">
+                    <use xlink:href="/assets/icons/default/sprite.svg#arrow-up"></use>
+                  </svg><span class="item__text">Price (High first)</span></a></li>
+              <li class="dropdown__item item"><a class="item__wrapper" data-value="price-low">
+                  <svg class="item__icon">
+                    <use xlink:href="/assets/icons/default/sprite.svg#arrow-down"></use>
+                  </svg><span class="item__text">Price (Low first)</span></a></li>
+              <li class="dropdown__item item"><a class="item__wrapper" data-value="thc-high">
+                  <div class="item__icon">
+                    <svg class="item__icon-text">
+                      <use xlink:href="/assets/icons/default/sprite.svg#THC"></use>
+                    </svg>
+                    <svg class="item__icon-svg" style="position: absolute; right: -5px; bottom: -1px; width: 18.07px; height: 13.01px;">
+                      <use xlink:href="/assets/icons/default/sprite.svg#arrow-more"></use>
+                    </svg>
+                  </div><span class="item__text">Total THC (High first)</span></a></li>
+              <li class="dropdown__item item"><a class="item__wrapper" data-value="thc-low">
+                  <div class="item__icon">
+                    <svg class="item__icon-text">
+                      <use xlink:href="/assets/icons/default/sprite.svg#THC"></use>
+                    </svg>
+                    <svg class="item__icon-svg" style="position: absolute; right: -7px; bottom: -1px; width: 18.07px; height: 13.01px;">
+                      <use xlink:href="/assets/icons/default/sprite.svg#arrow-less"></use>
+                    </svg>
+                  </div><span class="item__text">Total THC (Low first)</span></a></li>
+              <li class="dropdown__item item"><a class="item__wrapper" data-value="cbd-high">
+                  <div class="item__icon">
+                    <svg class="item__icon-text">
+                      <use xlink:href="/assets/icons/default/sprite.svg#CBD"></use>
+                    </svg>
+                    <svg class="item__icon-svg" style="position: absolute; right: -7px; bottom: 0px; width: 18.07px; height: 13.01px;">
+                      <use xlink:href="/assets/icons/default/sprite.svg#arrow-more"></use>
+                    </svg>
+                  </div><span class="item__text">Total CBD (High first)</span></a></li>
+              <li class="dropdown__item item"><a class="item__wrapper" data-value="cbd-low">
+                  <div class="item__icon">
+                    <svg class="item__icon-text">
+                      <use xlink:href="/assets/icons/default/sprite.svg#CBD"></use>
+                    </svg>
+                    <svg class="item__icon-svg" style="position: absolute; right: -9px; bottom: -1px; width: 18.07px; height: 13.01px;">
+                      <use xlink:href="/assets/icons/default/sprite.svg#arrow-less"></use>
+                    </svg>
+                  </div><span class="item__text">Total CBD (Low first)</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="chosen-filters">
+        <p class="chosen-filters__results-text"> <span class="chosen-filters__results-value">1034,5 </span>Results</p>
+        <div class="chosen-filters__container">
+          <ul class="chosen-filters__list">
+          </ul>
+        </div>
+      </section>
+      <section class="filters-accordion">
+        <div class="filters-accordion__container">
+          <svg class="filters-accordion__background">
+            <use xlink:href="/assets/icons/default/sprite.svg#background-leaf"></use>
+          </svg>
+          <div class="filters-accordion__item active">
+            <div class="filters-accordion__header active"><span>Classification</span>
+              <svg class="filters-accordion__arrow">
+                <use xlink:href="/assets/icons/default/sprite.svg#accordion-arrow"></use>
+              </svg>
+            </div>
+            <div class="filters-accordion__content">
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="type-all-indica">
+                  <input class="checkbox__input" type="checkbox" id="type-all-indica" data-filter="100% Indica"><span class="checkbox__text">100% Indica</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="type-all-sativa"> 
+                  <input class="checkbox__input" type="checkbox" id="type-all-sativa" data-filter="100% Sativa"><span class="checkbox__text">100% Sativa</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="type-half-indica">
+                  <input class="checkbox__input" type="checkbox" id="type-half-indica" data-filter="&gt;50% Indica"><span class="checkbox__text">>50% Indica</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="type-half-sativa">
+                  <input class="checkbox__input" type="checkbox" id="type-half-sativa" data-filter="&gt;50% Sativa"><span class="checkbox__text">>50% Sativa</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="filters-accordion__item active">
+            <div class="filters-accordion__header active"><span>Production Method</span>
+              <svg class="filters-accordion__arrow">
+                <use xlink:href="/assets/icons/default/sprite.svg#accordion-arrow"></use>
+              </svg>
+            </div>
+            <div class="filters-accordion__content">
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="method-indoor">
+                  <input class="checkbox__input" type="checkbox" id="method-indoor" data-filter="Indoor"><span class="checkbox__text">Indoor</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox">
+                <label class="checkbox__label" for="method-outdoor">
+                  <input class="checkbox__input" type="checkbox" id="method-outdoor" data-filter="Outdoor"><span class="checkbox__text">Outdoor</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="method-greenhouse">
+                  <input class="checkbox__input" type="checkbox" id="method-greenhouse" data-filter="Greenhouse"><span class="checkbox__text">Greenhouse</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="method-light-deprivation">
+                  <input class="checkbox__input" type="checkbox" id="method-light-deprivation" data-filter="Light Deprivation"><span class="checkbox__text">Light Deprivation</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox">
+                <label class="checkbox__label" for="method-mixed-light">
+                  <input class="checkbox__input" type="checkbox" id="method-mixed-light" data-filter="Mixed Light"><span class="checkbox__text">Mixed Light</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="method-other">
+                  <input class="checkbox__input" type="checkbox" id="method-other" data-filter="Other"><span class="checkbox__text">Other</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="filters-accordion__item active">
+            <div class="filters-accordion__header active"><span>Size</span>
+              <svg class="filters-accordion__arrow">
+                <use xlink:href="/assets/icons/default/sprite.svg#accordion-arrow"></use>
+              </svg>
+            </div>
+            <div class="filters-accordion__content">
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="size-flower">
+                  <input class="checkbox__input" type="checkbox" id="size-flower" data-filter="Flower"><span class="checkbox__text">Flower</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="size-preroll-flower">
+                  <input class="checkbox__input" type="checkbox" id="size-preroll-flower" data-filter="Pre-Roll Flower"><span class="checkbox__text">Pre-Roll Flower</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="size-preroll-infused">
+                  <input class="checkbox__input" type="checkbox" id="size-preroll-infused" data-filter="Pre-Roll Infused"><span class="checkbox__text">Pre-Roll Infused</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="size-preroll-leaf">
+                  <input class="checkbox__input" type="checkbox" id="size-preroll-leaf" data-filter="Pre-Roll Leaf"><span class="checkbox__text">Pre-Roll Leaf</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="size-shake1">
+                  <input class="checkbox__input" type="checkbox" id="size-shake1" data-filter="Shake"><span class="checkbox__text">Shake</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="size-smalls">
+                  <input class="checkbox__input" type="checkbox" id="size-smalls" data-filter="Smalls"><span class="checkbox__text">Smalls</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="size-trim">
+                  <input class="checkbox__input" type="checkbox" id="size-trim" data-filter="Trim"><span class="checkbox__text">Trim</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="size-shake2">
+                  <input class="checkbox__input" type="checkbox" id="size-shake2" data-filter="Shake"><span class="checkbox__text">Shake</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="size-keef">
+                  <input class="checkbox__input" type="checkbox" id="size-keef" data-filter="Keef"><span class="checkbox__text">Keef</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+              <div class="filters-accordion__checkbox checkbox">
+                <label class="checkbox__label" for="size-fresh-frozen">
+                  <input class="checkbox__input" type="checkbox" id="size-fresh-frozen" data-filter="Fresh Frozen"><span class="checkbox__text">Fresh Frozen</span><span class="checkbox__checkmark">
+                    <svg>
+                      <use xlink:href="/assets/icons/default/sprite.svg#checkmark"></use>
+                    </svg></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
