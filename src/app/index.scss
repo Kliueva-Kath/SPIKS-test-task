@@ -103,7 +103,7 @@ ul {
     line-height: 1.35;
     letter-spacing: 0.01em;
     text-align: left;
-    color: #fff;
+    color: config.$colors-white;
     width: 100%;
     border: none;
     outline: none;
@@ -145,7 +145,7 @@ ul {
       align-items: center;
       gap: 7px;
       &:focus-within {
-        border: 1px solid #fff;
+        border: 1px solid config.$colors-white;
       }
       @media screen and (max-width: 1200px) {
         height: 40px;
@@ -312,7 +312,7 @@ ul {
     font-weight: 400;
     line-height: 1.35;
     text-align: left;
-    color: #fff;
+    color: config.$colors-white;
     @media screen and (max-width: 1200px) {
       font-size: 15px;
     }
@@ -335,7 +335,7 @@ ul {
     border: none;
     outline: none;
     display: block;
-    color: #fff;
+    color: config.$colors-white;
     font-family: 'Proxima Nova Regular';
     font-size: 14px;
     font-weight: 400;
@@ -377,7 +377,7 @@ ul {
       }
     }
     &-span {
-      color: #fff;
+      color: config.$colors-white;
       font-family: 'Proxima Nova Regular';
       font-size: 14px;
       font-weight: 400;
@@ -452,7 +452,7 @@ ul {
       padding: 2px 5px;
       border-radius: 3px;
       background: #30303d;
-      color: #fff;
+      color: config.$colors-white;
       font-family: 'Proxima Nova Regular';
       font-size: 16px;
       font-weight: 400;
@@ -521,7 +521,7 @@ ul {
       cursor: pointer;
     }
     &:checked {
-      outline: 2px solid #fff;
+      outline: 2px solid config.$colors-white;
       box-shadow: 0px 3px 15px 0px #84d52c4f;
     }
     &--yellow {
@@ -618,7 +618,7 @@ ul {
     font-weight: 400;
     line-height: 1.35;
     text-align: left;
-    color: #fff;
+    color: config.$colors-white;
     @media screen and (max-width: 1200px) {
       font-size: 16px;
     }
@@ -831,7 +831,7 @@ ul {
     font-weight: 400;
     line-height: 1.35;
     text-align: left;
-    color: #fff;
+    color: config.$colors-white;
     padding-bottom: 10px;
     &:hover {
       opacity: 0.6;
@@ -871,11 +871,11 @@ ul {
       color: #959595;
       padding-left: 20px;
       .active {
-        color: #fff;
+        color: config.$colors-white;
       }
       &:hover {
         cursor: pointer;
-        color: #fff;
+        color: config.$colors-white;
       }
       @media screen and (max-width: 1200px) {
         font-size: 15px;
@@ -906,7 +906,7 @@ ul {
         }
       }
       &:checked + .checkbox__text {
-        color: #fff;
+        color: config.$colors-white;
       }
     }
     &__checkmark {
